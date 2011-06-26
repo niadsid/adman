@@ -1,4 +1,22 @@
 Adman::Application.routes.draw do
+  resources :domain_mappings
+
+  resources :systems
+
+  resources :interfaces
+
+  resources :address_ranges
+
+  resources :addresses
+
+  resources :domain_names
+
+  resources :subnets
+
+  resources :sites
+
+  resources :networks
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
