@@ -3,11 +3,11 @@
 <table>
   <tr>
     <th>Network address</th>
-    <th>Mask length</th>
     <th>Description</th>
     <th>Virtual ip</th>
     <th>Subnet</th>
     <th>Interface</th>
+    <th>System</th>
     <th>Nat address</th>
     <th>Nat address range</th>
     <th></th>
@@ -17,14 +17,20 @@
 
 <% @addresses.each do |address| %>
   <tr>
-    <td><%= address.network_address %></td>
-    <td><%= address.mask_length %></td>
+    <td><%= address.network_address %>/<%= address.mask_length %></td>
     <td><%= address.description %></td>
     <td><%= address.virtual_ip %></td>
-    <td><%= address.subnet_id %></td>
-    <td><%= address.interface_id %></td>
-    <td><%= address.nat_address_id %></td>
-    <td><%= address.nat_address_range_id %></td>
+    <td><%= address.subnet.subnet_name %></td>
+    <td><%= address.interface.interface_name %></td>
+    <td><%= address.interface.system.system_name %></td>
+    <td><% unless address.nat_address.nil? %>
+    	<%= address.nat_address.network_address %>
+    	<% end %>
+    </td>
+    <td><% unless address.address_range.nil? %>
+    	<%= address.address_range.first_address %>-<%= address.address_range.last_address %>
+    	<% end %>
+    </td>
     <td><%= link_to 'Show', address %></td>
     <td><%= link_to 'Edit', edit_address_path(address) %></td>
     <td><%= link_to 'Destroy', address, :confirm => 'Are you sure?', :method => :delete %></td>

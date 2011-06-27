@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110626003327) do
+ActiveRecord::Schema.define(:version => 20110626214506) do
 
   create_table "address_ranges", :force => true do |t|
     t.string   "first_address"
@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(:version => 20110626003327) do
     t.integer  "subnet_id"
     t.integer  "interface_id"
     t.integer  "nat_address_id"
-    t.integer  "nat_address_range_id"
+    t.integer  "address_range_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
