@@ -1,4 +1,8 @@
 Adman::Application.routes.draw do
+  get "pages/home"
+
+  get "pages/contact"
+
   resources :domain_mappings
 
   resources :systems
