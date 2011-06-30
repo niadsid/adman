@@ -6,3 +6,16 @@ class SiteTest < ActiveSupport::TestCase
     assert true
   end
 end
+
+# == Schema Information
+#
+# Table name: sites
+#
+#  id          :integer         not null, primary key
+#  site_name   :string(255)
+#  network_id  :integer
+#  description :string(255)
+#  created_at  :datetime
+#  updated_at  :datetime
+#
+

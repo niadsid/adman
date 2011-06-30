@@ -1,15 +1,16 @@
-<h1>Listing addresses</h1>
+<h1>IP Addresses</h1>
 
 <table>
   <tr>
-    <th>Network address</th>
-    <th>Description</th>
-    <th>Virtual ip</th>
-    <th>Subnet</th>
-    <th>Interface</th>
+    <th>IP Address</th>
+    <th>Subnet Name</th>
     <th>System</th>
-    <th>Nat address</th>
-    <th>Nat address range</th>
+    <th>Interface</th>
+    <th>Virtual IP?</th>
+    <th>FQDN</th>
+    <th>NATed to IP</th>
+    <th>NATed to Range</th>
+    <th>Description</th>
     <th></th>
     <th></th>
     <th></th>
@@ -18,11 +19,10 @@
 <% @addresses.each do |address| %>
   <tr>
     <td><%= address.network_address %>/<%= address.mask_length %></td>
-    <td><%= address.description %></td>
-    <td><%= address.virtual_ip %></td>
     <td><%= address.subnet.subnet_name %></td>
-    <td><%= address.interface.interface_name %></td>
     <td><%= address.interface.system.system_name %></td>
+    <td><%= address.interface.interface_name %></td>
+    <td><%= address.virtual_ip %></td>
     <td><% unless address.nat_address.nil? %>
     	<%= address.nat_address.network_address %>
     	<% end %>
@@ -31,6 +31,11 @@
     	<%= address.address_range.first_address %>-<%= address.address_range.last_address %>
     	<% end %>
     </td>
+    <td><% address.domain_mappings.each do |i| %>
+    	<%= i.domain_name.fully_qualified_domain_name %><br>
+    	<% end %>
+    </td>
+    <td><%= address.description %></td>
     <td><%= link_to 'Show', address %></td>
     <td><%= link_to 'Edit', edit_address_path(address) %></td>
     <td><%= link_to 'Destroy', address, :confirm => 'Are you sure?', :method => :delete %></td>
