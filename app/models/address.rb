@@ -8,6 +8,20 @@ class Address < ActiveRecord::Base
   has_many :domains_names, :through => :domain_mappings
   has_one :nat_address, :class_name => "Address", :foreign_key => "nat_address_id"
   belongs_to :address
+   
+  # Produces a formatted list of an addresses fully-qualified-domain names
+  def fqdn
+    fqdn = Array.new
+    self.domain_mappings.each do |i|
+      fqdn.push(i.domain_name.fully_qualified_domain_name)
+    end
+    fqdn.join("<br>")
+  end
+
+  def friendly_descriptor
+    self.network_address + "/" + self.mask_length.to_s + " (" + self.interface.system.system_name + ")"
+  end
+
 end
 
 # == Schema Information

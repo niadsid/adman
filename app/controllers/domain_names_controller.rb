@@ -1,4 +1,45 @@
 class DomainNamesController < ApplicationController
+  # GET /domain_names/data.xml
+  def data
+    @domain_names = Domain_name.all
+  end
+  
+  # GET /domain_names/dbaction.xml
+  def dbaction # supporting code for dhtmlx db/grid
+    #called for all db actions
+    network_address = params["c0"]
+    mask_length     = params["c1"]
+    fqdn            = params["c2"]
+    description     = params["c3"]
+    
+    @mode = params["!nativeeditor_status"]
+    
+    @id = params["gr_id"]
+    case @mode
+        when "inserted"
+            domain_name = Domain_name.new
+            domain_name.network_address = network_address
+            domain_name.mask_length = mask_length
+            domain_name.description = description
+            domain_name.save!
+            
+            @tid = domain_name.id
+        when "deleted"
+            domain_name=Domain_name.find(@id)
+            domain_name.destroy
+            
+            @tid = @id
+        when "updated"
+            domain_name=Domain_name.find(@id)
+            domain_name.network_address = network_address
+            domain_name.mask_length = mask_length
+            domain_name.description = description
+            domain_name.save!
+            
+            @tid = @id
+    end 
+  end
+  
   # GET /domain_names
   # GET /domain_names.xml
   def index

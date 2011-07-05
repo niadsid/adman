@@ -1,33 +1,57 @@
-<h1>Listing subnets</h1>
+<h3>
+	<ul>
+		<li><%= link_to "IP Addresses", addresses_path %></li>
+		<li><%= link_to "Networks",  networks_path %></li>
+		<li><%= link_to "Sites", sites_path %></li>
+		<li><%= link_to "Subnets", subnets_path, :class => "current_page" %></li>
+		<li><%= link_to "Address Ranges", address_ranges_path%></li>
+		<li><%= link_to "Systems", systems_path %></li>
+		<li><%= link_to "Interfaces", interfaces_path %></li>
+		<li><%= link_to "FQDNs", domain_names_path %></li>
+	</ul>
+</h3>
 
-<table>
-  <tr>
-    <th>Subnet name</th>
-    <th>Subnet identifier</th>
-    <th>Mask length</th>
-    <th>Default router</th>
-    <th>Description</th>
-    <th>Site</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<script src="/javascripts/codebase/dhtmlxdataprocessor.js" type="text/javascript" charset="utf-8"></script>
+<table id="flex1"></table> 
 
-<% @subnets.each do |subnet| %>
-  <tr>
-    <td><%= subnet.subnet_name %></td>
-    <td><%= subnet.subnet_identifier %></td>
-    <td><%= subnet.mask_length %></td>
-    <td><%= subnet.default_router %></td>
-    <td><%= subnet.description %></td>
-    <td><%= subnet.site_id %></td>
-    <td><%= link_to 'Show', subnet %></td>
-    <td><%= link_to 'Edit', edit_subnet_path(subnet) %></td>
-    <td><%= link_to 'Destroy', subnet, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-<% end %>
-</table>
-
+	<div id="grid_here" style="width:100%; height:600px;">
+	</div>
+	<script type="text/javascript" charset="utf-8">
+	    var grid = new dhtmlXGridObject("grid_here");
+	    grid.setImagePath("/javascripts/codebase/imgs/");
+	    grid.setHeader("Name, Subnet, Mask Length, Default Router, Description");
+	    grid.attachHeader("#text_filter,#text_filter,#select_filter,#text_filter,#text_filter");
+	    grid.setSizes();
+        grid.setColSorting("str,str,int,str,str");
+        grid.setColTypes("ed,ed,ed,ed,ed");
+        grid.enableEditTabOnly(1);
+	    grid.setInitWidths("100,100,100,*,*");
+	    grid.setColAlign("left,left,center,center,left")
+	    grid.setSkin("adman");
+	    grid.enableAlterCss("even_row","odd_row");
+	    grid.init();
+	    grid.load("/subnets/data.xml",function(){
+	    	grid.sortRows(0);
+	    });
+	    
+		dp = new dataProcessor("/subnets/dbaction.xml");
+		dp.init(grid);
+		
+		function clear_filter(){
+			grid.filterBy(0,"");
+			grid._f_rowsBuffer = null;
+		}
+		function add(){
+			clear_filter();
+			grid.addRow(grid.uid(), 'new subnet');
+		}
+		function remove(){
+			clear_filter();
+			grid.deleteSelectedRows();
+		}
+	</script>
+	<input type="button" value="Add" onclick="grid.addRow(grid.uid(),'new_subnet')">
+	<input type="button" value="Delete" onclick="grid.deleteSelectedRows()">
 <br />
 
 <%= link_to 'New Subnet', new_subnet_path %>

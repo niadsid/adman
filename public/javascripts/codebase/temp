@@ -1,0 +1,60 @@
+div.gridbox_dhx_skyblue .xhdr{background-image:url(../imgs/sky_blue_grid.gif);}
+
+div.gridbox_dhx_skyblue table.hdr tr{background-image:url(../imgs/sky_blue_grid.gif);background-position:0px -1px\9;}
+
+body:nth-of-type(1) div.gridbox_dhx_skyblue table.hdr tr{background-image:url(../imgs/sky_blue_grid.gif);background-position:0px -1px;}
+
+div.gridbox_dhx_skyblue table.obj tr td{font-family:Tahoma;font-size:11px;border-width:0px 0px 0px 0px;padding-right:4px;padding-left:4px;}
+
+div.gridbox_dhx_skyblue table.hdr td div.hdrcell{padding-left:10px;width:auto;}
+
+html>body div.gridbox_dhx_skyblue table.hdr td div.hdrcell{width=100%;}
+
+div.gridbox_dhx_skyblue table.hdr td{border-width:1px 1px 1px 1px;border-color:#FDFDFD #A4BED4 #A4BED4 #FDFDFD;background-color:transparent;font-family:Tahoma;font-size:11px;color:black;vertical-align:top;text-align:left;}
+
+div.gridbox_dhx_skyblue{border:1px solid #A4BED4;}
+
+div.gridbox table.obj tr td{padding-top:3px;padding-bottom:3px;}
+
+*html .gridbox .obj td{height:auto;padding-top=3px;padding-bottom=3px;}
+
+div.gridbox table.obj.row20px tr td{padding-top:0px;padding-bottom:0px;}
+
+div.gridbox table.obj tr td.editable{padding:0px;}
+
+div.gridbox table.obj tr td.editable div.treegrid_cell{padding-left:4px;padding-top:1px;}
+
+div.gridbox_dhx_skyblue table.obj tr.rowselected{background-color:#FFF1CC;}
+
+div.gridbox_dhx_skyblue table.obj tr.rowselected td{background-color:#FFF1CC;background-repeat:repeat-x;background-position:0px 0px;background-image:url(../imgs/sky_blue_sel2.png);}
+
+div.gridbox_dhx_skyblue table.obj.row20px tr.rowselected td{background-repeat:repeat-x;background-position:0px 0px;background-image:url(../imgs/sky_blue_sel.png);}
+
+div.gridbox_dhx_skyblue table.obj tr.rowselected td.cellselected{background-color:#FFF1CC;}
+
+div.gridbox_dhx_skyblue .odd_dhx_skyblue{background-color:#E3EFFF;}
+
+
+.dhx_combo_select, .gridbox_dhx_skyblue .dhx_combo_edit, .gridbox_dhx_skyblue .dhx_textarea{font-family:Tahoma;font-size:11px;}
+
+.gridbox_dhx_skyblue .dhx_combo_edit{padding:1px 0px 1px 1px;}
+
+.gridbox_dhx_skyblue .dhx_sub_row{background-color:transparent;}
+
+
+
+
+<link rel="STYLESHEET" type="text/css" href="codebase/dhtmlxtree.css?build=100722">
+<script src="codebase/dhtmlxcommon.js?build=100722"></script>
+<script src="codebase/dhtmlxtree.js?build=100722a"></script>
+
+<script>var activeTheme="dhx_skyblue";function jr(){tree1=new dhtmlXTreeObject(document.getElementById('treebox1'),"100%","100%",0);bp=new dhtmlXTreeObject(document.getElementById('treebox2'),"100%","100%",0);setSkin(activeTheme);}
+;function setSkin(skinName){var cTh=document.getElementById(activeTheme);var nTh=document.getElementById(skinName);cTh.className="skinbutton sb_inactive";nTh.className="skinbutton sb_active";activeTheme=skinName;tree1.setSkin(activeTheme);tree1.cx(0);tree1.setImagePath("codebase/imgs/csh_"+activeTheme+"/");tree1.setIconsPath("codebase/imgs/csh_"+activeTheme+"/");tree1.enableCheckBoxes(true);tree1.enableThreeStateCheckboxes(true);tree1.enableDragAndDrop(true);tree1.loadXML("xml/tree_"+activeTheme+".xml");bp.setSkin(activeTheme);bp.cx(0);bp.setImagePath("codebase/imgs/csh_"+activeTheme+"/");bp.setIconsPath("codebase/imgs/csh_"+activeTheme+"/");bp.enableTreeLines(false);bp.enableDragAndDrop(true);bp.loadXML("xml/tree_"+activeTheme+".xml")}
+;dhtmlxEvent(window,"load",jr);</script>
+<h2>Live demo</h2>
+<div style="position:relative;margin-bottom:10px;">
+
+<div id="treebox1" style="width:275px;height:238px;position:absolute;top:31px;left:19px;overflow:hidden;border:0px solid red;line-height:normal;"> </div> <div id="treebox2" style="width:275px;height:238px;position:absolute;top:31px;left:318px;overflow:hidden;border:0px solid red;line-height:normal;"> </div> <img src="images/demo_tree_bg_lightgrey.gif" width="615" height="340" alt="" border="0">  <div style="position:absolute;top:282px;left:0px;"> <div class="skinslabel">Icons Sets:</div> <div class="skinbutton sb_active" id="dhx_skyblue" onclick="setSkin(this.id)">DHX Sky Blue</div> <div class="skinbutton sb_inactive" id="books" onclick="setSkin(this.id)">Books</div> <div class="skinbutton sb_inactive" id="vista" onclick="setSkin(this.id)">Vista Theme</div> <div class="skinbutton sb_inactive" id="winstyle" onclick="setSkin(this.id)">Folders</div> <div style="clear:left;">
+</div>
+</div>
+</div>

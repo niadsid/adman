@@ -1,4 +1,15 @@
-<h1>Listing domain_names</h1>
+<h3>
+	<ul>
+		<li><%= link_to "IP Addresses", addresses_path %></li>
+		<li><%= link_to "Networks",  networks_path %></li>
+		<li><%= link_to "Sites", sites_path %></li>
+		<li><%= link_to "Subnets", subnets_path %></li>
+		<li><%= link_to "Address Ranges", address_ranges_path%></li>
+		<li><%= link_to "Systems", systems_path %></li>
+		<li><%= link_to "Interfaces", interfaces_path %></li>
+		<li><%= link_to "FQDNs", domain_names_path, :class => "current_page" %></li>
+	</ul>
+</h3>
 
 <table>
   <tr>

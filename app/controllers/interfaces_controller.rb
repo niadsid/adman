@@ -1,4 +1,45 @@
 class InterfacesController < ApplicationController
+  # GET /interfaces/data.xml
+  def data
+    @interfaces = Interface.all
+  end
+  
+  # GET /interfaces/dbaction.xml
+  def dbaction # supporting code for dhtmlx db/grid
+    #called for all db actions
+    network_address = params["c0"]
+    mask_length     = params["c1"]
+    fqdn            = params["c2"]
+    description     = params["c3"]
+    
+    @mode = params["!nativeeditor_status"]
+    
+    @id = params["gr_id"]
+    case @mode
+        when "inserted"
+            interface = Interface.new
+            interface.network_address = network_address
+            interface.mask_length = mask_length
+            interface.description = description
+            interface.save!
+            
+            @tid = address.id
+        when "deleted"
+            interface=Interface.find(@id)
+            interface.destroy
+            
+            @tid = @id
+        when "updated"
+            interface=Interface.find(@id)
+            interface.network_address = network_address
+            interface.mask_length = mask_length
+            interface.description = description
+            interface.save!
+            
+            @tid = @id
+    end 
+  end
+
   # GET /interfaces
   # GET /interfaces.xml
   def index

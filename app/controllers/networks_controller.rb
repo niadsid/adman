@@ -1,4 +1,49 @@
 class NetworksController < ApplicationController
+
+  # GET /networks/tree.xml
+  def tree
+    @networks = Network.all
+
+  end
+  
+  # GET /networks/data.xml
+  def data
+    @networks = Network.all
+  end
+  
+  # GET /networks/dbaction.xml
+  def dbaction # supporting code for dhtmlx db/grid
+    #called for all db actions
+    network_name      = params["c0"]
+    member_sites      = params["c1"]
+    description       = params["c2"]
+  
+    @mode = params["!nativeeditor_status"]
+    
+    @id = params["gr_id"]
+    case @mode
+        when "inserted"
+            network               = Network.new
+            network.natwork_name  = network_name
+            network.description   = description
+            network.save!
+            
+            @tid = address.id
+        when "deleted"
+            network=Network.find(@id)
+            network.destroy
+            
+            @tid = @id
+        when "updated"
+            network=Network.find(@id)
+            network.network_name = network_name
+            network.description = description
+            network.save!
+            
+            @tid = @id
+    end 
+  end
+  
   # GET /networks
   # GET /networks.xml
   def index

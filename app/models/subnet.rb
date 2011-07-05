@@ -4,6 +4,10 @@ class Subnet < ActiveRecord::Base
   belongs_to :site
   has_many :addresses
   has_many :address_ranges
+
+  def friendly_descriptor
+    self.subnet_name + ' (' + self.subnet_identifier + '/' + self.mask_length + ')'
+  end
 end
 
 # == Schema Information

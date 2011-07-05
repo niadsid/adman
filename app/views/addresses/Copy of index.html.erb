@@ -1,0 +1,37 @@
+<h1>IP Addresses</h1>
+
+<table id="flex1"></table> 
+
+<script type="text/javascript">
+			$("#flex1").flexigrid(
+			{
+			method: 'GET',
+			url: 'addresses.js',
+			dataType: 'json',
+			colModel : [
+				{display: 'Address', name : 'network_address', width : 100, sortable : true, align: 'left'},
+				{display: 'FQDN', name : 'fqdn', width : 100, sortable : true, align: 'left'},
+				{display: 'Subnet', name : 'subnet.subnet_name', width : 100, sortable : true, align: 'left'},
+				{display: 'Description', name : 'description', width : 200, sortable : true, align: 'left'}
+				],
+			searchitems : [
+				{display: 'Address', name : 'network_address', isdefault: true}
+				],
+			sortname: "network_address",
+			sortorder: "asc",
+			usepager: false,
+			title: 'Addresses',
+			rp: 100,
+			showTableToggleBtn: false,
+			width: 400,
+			height: 400,
+			}
+			);
+</script>
+
+
+
+<br />
+
+<%= link_to 'New Address', new_address_path %>
+

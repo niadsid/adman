@@ -1,4 +1,46 @@
 class AddressRangesController < ApplicationController
+
+  # GET /address_ranges/data.xml
+  def data
+    @address_ranges = Address_range.all
+  end
+  
+  # GET /address_ranges/dbaction.xml
+  def dbaction # supporting code for dhtmlx db/grid
+    #called for all db actions
+    network_address = params["c0"]
+    mask_length     = params["c1"]
+    fqdn            = params["c2"]
+    description     = params["c3"]
+    
+    @mode = params["!nativeeditor_status"]
+    
+    @id = params["gr_id"]
+    case @mode
+        when "inserted"
+            address_range = Address_range.new
+            address_range.network_address = network_address
+            address_range.mask_length = mask_length
+            address_range.description = description
+            address_range.save!
+            
+            @tid = address_range.id
+        when "deleted"
+            address_range=Address_range.find(@id)
+            address_range.destroy
+            
+            @tid = @id
+        when "updated"
+            address_range=Address_range.find(@id)
+            address_range.network_address = network_address
+            address_range.mask_length = mask_length
+            address_range.description = description
+            address_range.save!
+            
+            @tid = @id
+    end 
+  end
+  
   # GET /address_ranges
   # GET /address_ranges.xml
   def index

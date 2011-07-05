@@ -1,4 +1,46 @@
 class AddressesController < ApplicationController
+  
+  # GET /addresses/data.xml
+  def data
+    @addresses = Address.all
+  end
+  
+  # GET /addresses/dbaction.xml
+  def dbaction # supporting code for dhtmlx db/grid
+    #called for all db actions
+    network_address = params["c0"]
+    mask_length     = params["c1"]
+    fqdn            = params["c2"]
+    description     = params["c3"]
+    
+    @mode = params["!nativeeditor_status"]
+    
+    @id = params["gr_id"]
+    case @mode
+        when "inserted"
+            address = Address.new
+            address.network_address = network_address
+            address.mask_length = mask_length
+            address.description = description
+            address.save!
+            
+            @tid = address.id
+        when "deleted"
+            address=Address.find(@id)
+            address.destroy
+            
+            @tid = @id
+        when "updated"
+            address=Address.find(@id)
+            address.network_address = network_address
+            address.mask_length = mask_length
+            address.description = description
+            address.save!
+            
+            @tid = @id
+    end 
+  end
+
   # GET /addresses
   # GET /addresses.xml
   def index
@@ -80,4 +122,5 @@ class AddressesController < ApplicationController
       format.xml  { head :ok }
     end
   end
+  
 end

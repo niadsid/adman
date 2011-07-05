@@ -1,9 +1,9 @@
 .container {
-	width: 1190px;
+	width: 90%;
 }
 
 body {
-	background: #cff;
+	background: #AECEF5;
 }
 
 header {
@@ -23,7 +23,7 @@ header img {
 footer {
 	text-align: center;
 	margin-top: 10px;
-	width: 1190px;
+	width: 100%;
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -43,8 +43,36 @@ section h1 {
 	font-size: 200%
 }
 
+section h3 {
+	font-size: 100%
+}
+
+h3 ul {
+	margin: 0;
+	padding: 0;
+}
+
+h3 ul li {
+	list-style-type: none;
+	display: inline-block;
+	padding: 0.2em 0;
+}
+
+h3 ul li a {
+	padding: 0 5px;
+	font-weight: bold;
+}
+
+h3 ul li a:visited {
+	color: #365F91;
+}
+
+h3 ul li a:hover {
+	text-decoration: underline;
+}
+
 th {
-	font-family: arial, sans-serif;
+	font-family: Arial,Helvetica,Sans-serif;
 	font-size: 90%;
 	font-style: bold;
 	letter-spacing: 0pt;
@@ -53,7 +81,7 @@ th {
 }
 
 td {
-	font-family: arial, sans-serif;
+	font-family:Arial,Helvetica,Sans-serif;
 	font-size: 75%;
 	letter-spacing: 0pt;
 	word-spacing: 0pt;
@@ -63,7 +91,7 @@ td {
 /* Links */
 
 a {
-	color: #09c;
+	color: #365F91;
 	text-decoration: none;
 }
 
@@ -105,7 +133,7 @@ nav ul li a {
 }
 
 nav ul li a:visited {
-	color: #09c;
+	color: #365F91;
 }
 
 nav ul li a:hover {
@@ -127,10 +155,24 @@ a.signup_button {
 	padding: 20px;
 }
 
+/* Emphasize current page */
+
+h3 ul li a.current_page {
+	color: #630018;
+	font-size: 105%;
+}
+
 /* Round corners */
 
 .round {
-	-moz-border-radius: 10px;
-	-webkit-border-radius: 10px;
-	border-radius: 10px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+}
+
+/* Model friendly_descriptors */
+
+#friendly {
+	color: #A7BFDE;
+	font-style: italic;
 }

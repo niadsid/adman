@@ -1,48 +1,64 @@
-<h1>IP Addresses</h1>
+<h3>
+	<ul>
+		<li><%= link_to "IP Addresses", addresses_path, :class => "current_page" %></li>
+		<li><%= link_to "Networks",  networks_path %></li>
+		<li><%= link_to "Sites", sites_path %></li>
+		<li><%= link_to "Subnets", subnets_path %></li>
+		<li><%= link_to "Address Ranges", address_ranges_path %></li>
+		<li><%= link_to "Systems", systems_path %></li>
+		<li><%= link_to "Interfaces", interfaces_path %></li>
+		<li><%= link_to "FQDNs", domain_names_path %></li>
+	</ul>
+</h3>
 
-<table>
-  <tr>
-    <th>IP Address</th>
-    <th>Subnet Name</th>
-    <th>System</th>
-    <th>Interface</th>
-    <th>Virtual IP?</th>
-    <th>FQDN</th>
-    <th>NATed to IP</th>
-    <th>NATed to Range</th>
-    <th>Description</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<script src="/javascripts/codebase/dhtmlxdataprocessor.js" type="text/javascript" charset="utf-8"></script>
+<table id="flex1"></table> 
 
-<% @addresses.each do |address| %>
-  <tr>
-    <td><%= address.network_address %>/<%= address.mask_length %></td>
-    <td><%= address.subnet.subnet_name %></td>
-    <td><%= address.interface.system.system_name %></td>
-    <td><%= address.interface.interface_name %></td>
-    <td><%= address.virtual_ip %></td>
-    <td><% unless address.nat_address.nil? %>
-    	<%= address.nat_address.network_address %>
-    	<% end %>
-    </td>
-    <td><% unless address.address_range.nil? %>
-    	<%= address.address_range.first_address %>-<%= address.address_range.last_address %>
-    	<% end %>
-    </td>
-    <td><% address.domain_mappings.each do |i| %>
-    	<%= i.domain_name.fully_qualified_domain_name %><br>
-    	<% end %>
-    </td>
-    <td><%= address.description %></td>
-    <td><%= link_to 'Show', address %></td>
-    <td><%= link_to 'Edit', edit_address_path(address) %></td>
-    <td><%= link_to 'Destroy', address, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-<% end %>
-</table>
-
+	<div id="grid_here" style="width:100%; height:600px;">
+	</div>
+	<script type="text/javascript" charset="utf-8">
+	    var grid = new dhtmlXGridObject("grid_here");
+	    grid.setImagePath("/javascripts/codebase/imgs/");
+	    grid.setHeader("IP Address, Mask Length, FQDN, Description");
+	    grid.attachHeader("#text_filter,#select_filter,#text_filter,#text_filter");
+	    grid.setSizes();
+        grid.setColSorting("str,str,na,str");
+        grid.setColTypes("ed,ed,ro,ed");
+        grid.enableEditTabOnly(1);
+	    grid.setInitWidths("100,100,*,*");
+	    grid.setColAlign("right,left,center,left")
+	    grid.setSkin("adman");
+	    grid.enableAlterCss("even_row","odd_row");
+	    grid.init();
+	    grid.load("/addresses/data.xml",function(){
+	    	grid.sortRows(0);
+	    });
+	    
+	    
+		dp = new dataProcessor("/addresses/dbaction.xml");
+		dp.init(grid);
+		
+		function clear_filter(){
+			grid.filterBy(0,"");
+			grid._f_rowsBuffer = null;
+		}
+		function add(){
+			clear_filter();
+			grid.addRow(grid.uid(), 'new address');
+		}
+		function remove(){
+			clear_filter();
+			grid.deleteSelectedRows();
+		}
+	</script>
+	<input type="button" value="Add" onclick="grid.addRow(grid.uid(),'new_address')">
+	<input type="button" value="Delete" onclick="grid.deleteSelectedRows()">
 <br />
 
 <%= link_to 'New Address', new_address_path %>
+
+
+
+            
+            
+            

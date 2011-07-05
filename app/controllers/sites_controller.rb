@@ -1,4 +1,43 @@
 class SitesController < ApplicationController
+  
+  # GET /sites/data.xml
+  def data
+    @sites = Site.all
+  end
+  
+  # GET /sites/dbaction.xml
+  def dbaction # supporting code for dhtmlx db/grid
+    #called for all db actions
+    site_name         = params["c0"]
+    description       = params["c1"]
+    member_subnets    = params["c2"]
+  
+    @mode = params["!nativeeditor_status"]
+    
+    @id = params["gr_id"]
+    case @mode
+        when "inserted"
+            site              = Site.new
+            site.site_name    = site_name
+            site.description  = description
+            site.save!
+            
+            @tid = address.id
+        when "deleted"
+            site=Site.find(@id)
+            site.destroy
+            
+            @tid = @id
+        when "updated"
+            site=Site.find(@id)
+            site.site_name   = site_name
+            site.description = description
+            site.save!
+            
+            @tid = @id
+    end 
+  end
+  
   # GET /sites
   # GET /sites.xml
   def index

@@ -1,4 +1,48 @@
 class SubnetsController < ApplicationController
+  # GET /subnets/data.xml
+  def data
+    @subnets = Subnet.all
+  end
+  
+  # GET /subnets/dbaction.xml
+  def dbaction # supporting code for dhtmlx db/grid
+    #called for all db actions
+    subnet_name       = params["c0"]
+    subnet_identifier = params["c1"]
+    mask_length       = params["c2"]
+    default_router    = params["c3"]
+    description       = params["c4"]
+ 
+    @mode = params["!nativeeditor_status"]
+    
+    @id = params["gr_id"]
+    case @mode
+        when "inserted"
+            subnet = Subnet.new
+            subnet.subnet_name        = subnet_name
+            subnet.subnet_identifier  = subnet_identifier
+            subnet.mask_length        = mask_length
+            subnet.description        = description
+            subnet.save!
+            
+            @tid = Subnet.id
+        when "deleted"
+            subnet=subnet.find(@id)
+            subnet.destroy
+            
+            @tid = @id
+        when "updated"
+            subnet=Subnet.find(@id)
+            subnet.subnet_name        = subnet_name
+            subnet.subnet_identifier  = subnet_identifier
+            subnet.mask_length        = mask_length
+            subnet.description        = description
+            subnet.save!
+            
+            @tid = @id
+    end 
+  end
+
   # GET /subnets
   # GET /subnets.xml
   def index

@@ -6,6 +6,29 @@ Adman::Application.routes.draw do
   match '/about',   :to => 'pages#about'
   match '/help',    :to => 'pages#help'
 
+  match 'addresses/data', :to => 'addresses#data'
+  match 'addresses/dbaction', :to => 'addresses#dbaction'
+  match 'networks/data', :to => 'networks#data'
+  match 'networks/tree', :to => 'networks#tree'
+  match 'networks/dbaction', :to => 'networks#dbaction'
+  match 'sites/data', :to => 'sites#data'
+  match 'sites/dbaction', :to => 'sites#dbaction'
+  
+  match 'subnets/data', :to => 'subnets#data'
+  match 'subnets/dbaction', :to => 'subnets#dbaction'
+  
+  match 'address_ranges/data', :to => 'address_ranges#data'
+  match 'address_ranges/dbaction', :to => 'address_ranges#dbaction'
+  
+  match 'domain_names/data', :to => 'domain_names#data'
+  match 'domain_names/dbaction', :to => 'domain_names#dbaction'
+  
+  match 'interfaces/data', :to => 'interfaces#data'
+  match 'interfaces/dbaction', :to => 'interfaces#dbaction'
+  
+  match 'systems/data', :to => 'systems#data'
+  match 'systems/dbaction', :to => 'systems#dbaction'
+
   resources :domain_mappings
 
   resources :systems

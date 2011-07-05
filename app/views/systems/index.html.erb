@@ -1,27 +1,58 @@
-<h1>Listing systems</h1>
+<h3>
+	<ul>
+		<li><%= link_to "IP Addresses", addresses_path %></li>
+		<li><%= link_to "Networks",  networks_path %></li>
+		<li><%= link_to "Sites", sites_path %></li>
+		<li><%= link_to "Subnets", subnets_path  %></li>
+		<li><%= link_to "Address Ranges", address_ranges_path%></li>
+		<li><%= link_to "Systems", systems_path, :class => "current_page" %></li>
+		<li><%= link_to "Interfaces", interfaces_path %></li>
+		<li><%= link_to "FQDNs", domain_names_path %></li>
+	</ul>
+</h3>
 
-<table>
-  <tr>
-    <th>System name</th>
-    <th>Location</th>
-    <th>Description</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<script src="/javascripts/codebase/dhtmlxdataprocessor.js" type="text/javascript" charset="utf-8"></script>
+<table id="flex1"></table> 
 
-<% @systems.each do |system| %>
-  <tr>
-    <td><%= system.system_name %></td>
-    <td><%= system.location %></td>
-    <td><%= system.description %></td>
-    <td><%= link_to 'Show', system %></td>
-    <td><%= link_to 'Edit', edit_system_path(system) %></td>
-    <td><%= link_to 'Destroy', system, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-<% end %>
-</table>
-
+	<div id="grid_here" style="width:600px; height:400px;">
+	</div>
+	<script type="text/javascript" charset="utf-8">
+	    var grid = new dhtmlXGridObject("grid_here");
+	    grid.setImagePath("/javascripts/codebase/imgs/");
+	    grid.setHeader("System Name, Description, Interfaces");
+	    grid.attachHeader("#text_filter,#text_filter,#text_filter");
+	    grid.setSizes();
+        grid.setColSorting("str,str,na");
+        grid.setColTypes("ed,ed,ro");
+        grid.enableEditTabOnly(1);
+	    grid.setInitWidths("100,100,*");
+	    grid.setColAlign("left,left,left")
+	    grid.setSkin("adman");
+	    grid.enableAlterCss("even_row","odd_row");
+	    grid.init();
+	    grid.load("/systems/data.xml",function(){
+	    	grid.sortRows(0);
+	    });
+	    
+	    
+		dp = new dataProcessor("/systems/dbaction.xml");
+		dp.init(grid);
+		
+		function clear_filter(){
+			grid.filterBy(0,"");
+			grid._f_rowsBuffer = null;
+		}
+		function add(){
+			clear_filter();
+			grid.addRow(grid.uid(), 'new network');
+		}
+		function remove(){
+			clear_filter();
+			grid.deleteSelectedRows();
+		}
+	</script>
+	<input type="button" value="Add" onclick="grid.addRow(grid.uid(),'new_network')">
+	<input type="button" value="Delete" onclick="grid.deleteSelectedRows()">
 <br />
 
 <%= link_to 'New System', new_system_path %>

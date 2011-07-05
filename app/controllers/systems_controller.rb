@@ -1,4 +1,42 @@
 class SystemsController < ApplicationController
+  # GET /systems/data.xml
+  def data
+    @systems = System.all
+  end
+  
+  # GET /systems/dbaction.xml
+  def dbaction # supporting code for dhtmlx db/grid
+    #called for all db actions
+    system_name           = params["c0"]
+    description           = params["c1"]
+    associated_interfaces = params["c2"]
+    
+    @mode = params["!nativeeditor_status"]
+    
+    @id = params["gr_id"]
+    case @mode
+        when "inserted"
+            system = System.new
+            system.system_name = system_name
+            system.description = description
+            system.save!
+            
+            @tid = address.id
+        when "deleted"
+            system=System.find(@id)
+            system.destroy
+            
+            @tid = @id
+        when "updated"
+            system=System.find(@id)
+            system.system_name = system_name
+            system.description = description
+            system.save!
+            
+            @tid = @id
+    end 
+  end
+
   # GET /systems
   # GET /systems.xml
   def index
