@@ -4,7 +4,7 @@ class AddressesController < ApplicationController
   def data
     @addresses = Address.all
   end
-  
+
   # GET /addresses/dbaction.xml
   def dbaction # supporting code for dhtmlx db/grid
     #called for all db actions
